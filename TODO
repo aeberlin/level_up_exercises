@@ -15,7 +15,13 @@ TODO:
     - extra reject clause from init_tester in SplitTest
     - just use keys in build_groups in SplitTest
 
-4: TEST ENGINEERING LEVELUP STUFF
+4:  overlord
+    - modify routes to remove "case" statement in BombHelpers#configure_bomb
+    - remove inline styles from views
+    - modify features to remove assertion in /Given/ and setup bomb
+    - modify specs to setup bomb instead of relying on previously established states
+
+5:  TEST ENGINEERING LEVELUP STUFF
 
     Exercise: Knows how Capybara and drivers work
     - Name a case where a driver other than the default would be necessary, then go implement it with your overlord code.
