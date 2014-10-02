@@ -4,7 +4,7 @@ require 'pathname'
 require "#{File.dirname(__FILE__)}/spec/system_helper.rb"
 
 RUBOCOP_OPTS = {
-  all_on_start: true,
+  all_on_start: false,
   cli: ['--format', 'clang'],
   notification: true
 }

@@ -1,39 +1,23 @@
 TODO:
 
-0:  class << self
-      alias_method :[], :load
-    end
-
 1:  wrappable:
-    - investigate using the singleton_class or alias_method instead of prepend
-    - prefer instance over class mixins (see above?)
-    - write more readable tests
-
-2:  object.this { ... }
-
-3:  const_missing require hook
+    - prefer instance extension over class inclusion (see above?)
+    - write more readable / less fragile tests
     
-4:  dino_catalog
+2:  dino_catalog
     - global:       switch to activesupport concerns
                     https://gist.github.com/scottsims/09a23ee408c260351111
 
-5:  data_science
+3:  data_science
     - refactor to introspect on file information for instantation klasses.
       - OR inject importer into parser prior to passing off to calculator
-    - omit Importer::read() in favor of Importer::load()
-    - fix begin/rescue syntax in SplitTest execute
-    - just use keys in build_groups in SplitTest
-    - extra reject clause from init_tester in SplitTest
-    - remove #to_f from denominator in conversion in SplitTest
-    - SplitTestCalculator -> Calculator
-    - Object.this(&block) OR GROUP_BY in SplitTestParser
-    - specs -> me -> better naming
-    - specs -> lets for outside context variable assignment
     - hash_matcher / keys for in 'exposes correct fields' in SplitTestCalculator
-    - new line are `it` blocks
-    - "populates `results` hash with accurate data" -> extract `expected`
+    - extra reject clause from init_tester in SplitTest
+    - just use keys in build_groups in SplitTest
+    - * omit Importer::read() in favor of Importer::load()
+    - * SplitTestCalculator -> Calculator
 
-6: TEST ENGINEERING LEVELUP STUFF
+4: TEST ENGINEERING LEVELUP STUFF
 
     Exercise: Knows how Capybara and drivers work
     - Name a case where a driver other than the default would be necessary, then go implement it with your overlord code.
@@ -54,10 +38,7 @@ TODO:
 
     *** http://robots.thoughtbot.com/write-reliable-asynchronous-integration-tests-with-capybara
 
-    *** http://www.regexr.com/39ig4
 
-        /^I (.+) the bomb(?: (?:with|and) "(\w+)")*$/gm
+    Blake Thomas [12:46 PM] HAPPY / SAD / BAD
 
-        I boot the bomb                             => ["boot"]
-        I activate the bomb with "0000" and "1234"  => ["activate", "1234"]
-        I deactivate the bomb with "0000"           => ["deactivate", "0000"]
+    so, "happy" vs "sad" is actually "positive" vs "negative" test cases. think of those in terms of permissions, you can (positive), you can't (negative), and bug (invalid). so, to add further analogy to injury: let's say you have to make a payment that meets a commitment. happy, or positive, is that your payment is large enough. the payment is accepted, you get a nice flash message in green, &c. sad, or negative, is that your payment isn't large enough, you get a flash message in red with exclamations, &c. bad or invalid is that you enter in -1 and it accepts it because the comparison logic inverts for negative numbers and doesn't reject them outright. you get the green flash message, but you can't view your loan detail because it raises an exception.

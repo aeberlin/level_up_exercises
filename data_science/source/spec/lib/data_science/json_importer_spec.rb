@@ -1,14 +1,13 @@
 require_relative '../../spec_helper.rb'
 
 module DataScience
-  klass = JSONImporter
-  describe klass do
-    import_path = "#{PROJECT_ROOT}/data/conversion_sample.json"
+  describe JSONImporter do
+    let(:import_path) { "#{PROJECT_ROOT}/data/conversion_sample.json" }
 
     context 'when importing' do
       it 'loads the input data' do
-        me = klass.load(import_path)
-        expect(me.size).to eq(2892)
+        data = JSONImporter.load(import_path)
+        expect(data.size).to eq(2892)
       end
     end
   end

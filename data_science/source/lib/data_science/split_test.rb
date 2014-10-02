@@ -12,12 +12,10 @@ module DataScience
 
     def execute
       super
-      begin
-        @results = build_results
-      rescue => ex
-        return error_hash(ex)
-      end
+      @results = build_results
       self
+    rescue => ex
+      return error_hash(ex)
     end
 
     protected
@@ -53,7 +51,7 @@ module DataScience
     end
 
     def conversion(group)
-      @data[group][:hits].to_f / @data[group][:total].to_f
+      @data[group][:hits].to_f / @data[group][:total]
     end
 
     def p_value

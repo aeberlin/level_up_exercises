@@ -1,29 +1,15 @@
 require_relative '../../spec_helper.rb'
 
 module DataScience
-  klass = Calculator
-  test_klass = Test
-  describe klass do
-    OPTIONS = {
-      input_file: "#{PROJECT_ROOT}/data/conversion_sample.json"
-    }
-
-    me = klass.execute(OPTIONS)
+  describe Calculator do
+    let(:import_path) { "#{PROJECT_ROOT}/data/conversion_sample.json" }
+    let(:test) { Calculator.execute(input_file: import_path) }
 
     context 'when executing' do
-      it "returns #{test_klass} object" do
-        expect(me).to be_a(test_klass)
-      end
-
-      # FIXME: These tests may be redundant
-      context "returns #{test_klass} object" do
-        it 'with populated data' do
-          expect(me.data).not_to be_empty
-        end
-
-        it 'with populated results' do
-          expect(me.results).not_to be_empty
-        end
+      it 'returns a populated Test object' do
+        expect(test).to be_a(Test)
+        expect(test.data).not_to be_empty
+        expect(test.results).not_to be_empty
       end
     end
   end
