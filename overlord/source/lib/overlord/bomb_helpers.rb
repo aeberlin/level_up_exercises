@@ -18,8 +18,9 @@ module Overlord
       session[:bomb] = Bomb.new(code)
     end
 
-    def arm_bomb(activation_code, deactivation_code = nil)
-      session[:bomb].activate!(activation_code, deactivation_code)
+    def arm_bomb(on_code, off_code = nil)
+      on_code, off_code = nullify?(on_code), nullify?(off_code)
+      session[:bomb].activate!(on_code, off_code)
     end
 
     def disarm_bomb(code)
@@ -28,6 +29,10 @@ module Overlord
 
     def reboot_bomb(code)
       session[:bomb].reboot!(code)
+    end
+
+    def nullify?(value)
+      value.empty? ? nil : value
     end
   end
 end
