@@ -9,14 +9,14 @@ module Overlord
     bomb = Bomb.boot!(activation_code)
 
     context 'when instantiating' do
-      it 'aliases `boot!` to `new`' do
+      it 'booting returns a new bomb' do
         expect(bomb).to be_a(Bomb)
       end
       it 'sets the default activation code' do
-        expect(Bomb.new.send(:authenticate, default_activation_code)).to eq(true)
+        expect(Bomb.new.send(:authenticate, default_activation_code)).to be_truthy
       end
       it 'accepts an activation code' do
-        expect(bomb.send(:authenticate, activation_code)).to eq(true)
+        expect(bomb.send(:authenticate, activation_code)).to be_truthy
       end
     end
 
@@ -24,30 +24,30 @@ module Overlord
       it 'is deactivated and exposes non-sensitive fields' do
         expect(bomb.attempts).to eq(0)
         expect(bomb.time).to be_nil
-        expect(bomb.status).to eq(:deactivated)
+        expect(bomb).to be_inactive
       end
     end
 
     context 'when activating' do
       it 'authenticates with the default activation code' do
         b = Bomb.new
-        expect(b.send(:authenticate, default_activation_code)).to eq(true)
+        expect(b.send(:authenticate, default_activation_code)).to be_truthy
       end
       it 'authenticates with the provided activation code' do
-        expect(bomb.send(:authenticate, activation_code)).to eq(true)
+        expect(bomb.send(:authenticate, activation_code)).to be_truthy
       end
       it 'sets the default deactivation code' do
         b = Bomb.new
         b.activate!(default_activation_code)
-        expect(b.send(:authenticate, default_deactivation_code)).to eq(true)
+        expect(b.send(:authenticate, default_deactivation_code)).to be_truthy
       end
       it 'accepts a deactivation code' do
         bomb.activate!(activation_code, deactivation_code)
-        expect(bomb.send(:authenticate, deactivation_code)).to eq(true)
+        expect(bomb.send(:authenticate, deactivation_code)).to be_truthy
       end
       it 'is no longer inactive' do
-        expect(bomb.inactive?).to eq(false)
-        expect(bomb.active?).to eq(true)
+        expect(bomb.inactive?).to be_falsey
+        expect(bomb.active?).to be_truthy
       end
       it 'explodes when you attempt to reboot it' do
         b = bomb.clone
@@ -65,8 +65,8 @@ module Overlord
       end
       it 'accepts the code and disarms' do
         bomb.deactivate!(deactivation_code)
-        expect(bomb.inactive?).to eq(true)
-        expect(bomb.active?).to eq(false)
+        expect(bomb.inactive?).to be_truthy
+        expect(bomb.active?).to be_falsey
       end
     end
 
@@ -74,7 +74,7 @@ module Overlord
       it 'accepts an activation code' do
         new_code = '9999'
         bomb.reboot!(new_code)
-        expect(bomb.send(:authenticate, new_code)).to eq(true)
+        expect(bomb.send(:authenticate, new_code)).to be_truthy
       end
       it 'resets metadata' do
         expect(bomb.attempts).to eq(0)

@@ -19,9 +19,8 @@ module Overlord
 
     singleton_class.send(:alias_method, :boot!, :new)
 
-    def initialize(activation_code = nil)
+    def initialize(activation_code = ACTIVATION_CODE)
       reset_configuration
-      activation_code ||= ACTIVATION_CODE
       @activation_code = self.class.digest_code(activation_code)
     end
 
@@ -29,22 +28,23 @@ module Overlord
       @status == :activated
     end
 
-    def activate!(activation_code, deactivation_code = nil)
+    def activate!(activation_code, deactivation_code = DEACTIVATION_CODE)
       return unless authenticate(activation_code)
-      deactivation_code ||= DEACTIVATION_CODE
       @deactivation_code = self.class.digest_code(deactivation_code)
       @attempts, @time, @status = 0, Time.now, :activated
     end
 
     def inactive?
-      !active?
+      @status == :deactivated
     end
 
     # rubocop:disable Style/GuardClause
     def deactivate!(code)
-      if active?
-        reset_configuration if authenticate(code)
-        boom! if failed_attempt > 2 && active?
+      return unless active?
+      if authenticate(code)
+        reset_configuration
+      else
+        boom! if failed_attempt > 2
       end
     end
     # rubocop:enable Style/GuardClause

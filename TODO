@@ -14,8 +14,6 @@ TODO:
     - hash_matcher / keys for in 'exposes correct fields' in SplitTestCalculator
     - extra reject clause from init_tester in SplitTest
     - just use keys in build_groups in SplitTest
-    - * omit Importer::read() in favor of Importer::load()
-    - * SplitTestCalculator -> Calculator
 
 4: TEST ENGINEERING LEVELUP STUFF
 
