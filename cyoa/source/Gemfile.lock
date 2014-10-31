@@ -80,11 +80,11 @@ GIT
 
 GIT
   remote: https://github.com/arkbot/guard-scss-lint.git
-  revision: a612276baa9b64e29a00352485d666f81ed08a68
+  revision: c75aaa524d094ac0f8ea885ebd5a6fbf79abeb28
   specs:
     guard-scss-lint (0.1.0)
       guard (~> 2.0)
-      scss-lint (~> 0.29.0)
+      scss-lint
 
 GIT
   remote: https://github.com/aeberlin/guard-rubocop.git

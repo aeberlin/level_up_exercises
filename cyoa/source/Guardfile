@@ -8,7 +8,13 @@ require 'perscribo/support/guard/rspec'
 require 'perscribo/support/guard/rubocop'
 require 'perscribo/support/guard/scss-lint'
 
-group :red_green_refactor, halt_on_fail: true do
+group :persistent_services, halt_on_fail: true do
+  # guard :perscribo do
+  #   watch :rails
+  #   watch :unicorn
+  #   watch :cucumber, :rspec, :rubocop, :scsslint
+  # end
+  
   guard :shell do
     watch(%r{^Rakefile|(?:(?:test|lib)/support/|main)(.+)\.rb}) do
       begin
@@ -38,7 +44,9 @@ group :red_green_refactor, halt_on_fail: true do
       "/assets/#{m[3]}" 
     end
   end
+end
 
+group :red_green_refactor, halt_on_fail: true do
   GUARD_CUKE_OPTS = Perscribo::Support::Guard::Cucumber::DEFAULTS[:guard_opts]
   guard :cucumber, GUARD_CUKE_OPTS do
     watch(%r{^test/features/.+\.feature$})
