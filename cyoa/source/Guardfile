@@ -1,0 +1,67 @@
+require 'guard-perscribo'
+
+require 'perscribo/support/guard/rails'
+require 'perscribo/support/guard/unicorn'
+
+require 'perscribo/support/guard/cucumber'
+require 'perscribo/support/guard/rspec'
+require 'perscribo/support/guard/rubocop'
+require 'perscribo/support/guard/scss-lint'
+
+group :red_green_refactor, halt_on_fail: true do
+  guard :shell do
+    watch(%r{^Rakefile|(?:(?:test|lib)/support/|main)(.+)\.rb}) do
+      begin
+        reload_guardfile!
+      rescue
+        puts 'WARNING: the `guard-perscribo` gem may not be installed!'
+      end
+    end
+  end
+
+  guard :bundler do
+    watch(/(Gemfile|(.+)\.gemspec)/)
+  end
+
+  GUARD_RAILS_OPTS = Perscribo::Support::Guard::Rails::DEFAULTS[:guard_opts]
+  guard :rails, GUARD_RAILS_OPTS do
+    watch(/(Gemfile\.lock|config\.ru)/)
+    watch(%r{^(config|lib)/.*})
+  end
+
+  guard :livereload do
+    watch(%r{app/views/.+\.(erb|haml|slim)})
+    watch(%r{app/helpers/.+\.rb})
+    watch(%r{public/.+\.(css|js|html)})
+    watch(%r{config/locales/.+\.yml})
+    watch(%r{(app|vendor)(/assets/\w+/(.+\.(css|js|html))).*}) do |m|
+      "/assets/#{m[3]}" 
+    end
+  end
+
+  GUARD_CUKE_OPTS = Perscribo::Support::Guard::Cucumber::DEFAULTS[:guard_opts]
+  guard :cucumber, GUARD_CUKE_OPTS do
+    watch(%r{^test/features/.+\.feature$})
+    watch(%r{^test/features/(?:support|step.+)/(.+)(?:_steps)\.rb$}) do |m|
+      Dir[File.join("**/#{m[1]}.feature")][0] || CUKE_OPTS[:feature_sets]
+    end
+  end
+
+  GUARD_RSPEC_OPTS = Perscribo::Support::Guard::RSpec::DEFAULTS[:guard_opts]
+  guard :rspec, GUARD_RSPEC_OPTS do
+    watch(%r{^test/support/spec_helper\.rb}) { "test/spec" }
+    watch(%r{^test/spec/(.+)\.rb}) { |m| "#{m[0]}" }
+    watch(%r{^lib/(.+)\.rb}) { |m| "test/spec/lib/#{m[1]}_spec.rb" }
+  end
+
+  GUARD_RBCOP_OPTS = Perscribo::Support::Guard::RuboCop::DEFAULTS[:guard_opts]
+  guard :rubocop, GUARD_RBCOP_OPTS do
+    watch(%r{^.rubocop.yml$}) { '.' }
+    watch(%r{^Guardfile|Rakefile|(.+)\.rb$}) { |m| "#{m[0]}" }
+  end
+
+  GUARD_SCSS_OPTS = Perscribo::Support::Guard::SCSSLint::DEFAULTS[:guard_opts]
+  guard :scsslint, GUARD_SCSS_OPTS do
+    watch(%r{^(.+)\.scss(.*)$}) { |m| "#{m[0]}" }
+  end
+end

@@ -1,0 +1,74 @@
+source 'https://rubygems.org'
+
+ruby '2.1.2'
+
+gem 'rails', '4.1.6'
+
+gem 'bcrypt', '~> 3.1.7'
+gem 'coffee-rails', '~> 4.0.0'
+gem 'jbuilder', '~> 2.0'
+gem 'jquery-rails'
+gem 'sass-rails', '~> 4.0.3'
+gem 'turbolinks'
+gem 'uglifier', '>= 1.3.0'
+
+# Use sqlite3 as the database for Active Record
+gem 'sqlite3'
+
+group :doc do
+  gem 'sdoc', '~> 0.4.0'
+end
+
+group :development, :test do
+  gem 'spring'
+  gem 'unicorn-rails'
+
+  gem 'cucumber-rails', require: false
+  gem 'rspec', require: false
+  gem 'rubocop', require: false
+
+  gem 'guard', require: false
+  gem 'terminal-notifier-guard', require: false
+
+  gem 'guard-bundler', require: false
+  gem 'guard-rails', require: false
+  gem 'guard-shell', require: false
+
+  gem 'guard-livereload', require: false
+  gem 'rack-livereload'
+
+  gem 'guard-cucumber', require: false
+  gem 'guard-rspec', require: false
+
+  gem 'scss-lint', require: false, git: 'https://github.com/aeberlin/scss-lint.git', branch: 'merged_master'
+
+  gem 'guard-rubocop', require: false, git: 'https://github.com/aeberlin/guard-rubocop.git'
+  gem 'guard-scss-lint', require: false, git: 'https://github.com/arkbot/guard-scss-lint.git'
+
+  gem 'intus', require: false, git: 'https://github.com/arkbot/intus.git'
+  gem 'perscribo', require: false, git: 'https://github.com/arkbot/perscribo.git'
+  gem 'guard-perscribo', require: false, git: 'https://github.com/arkbot/guard-perscribo.git'
+
+  gem 'perscribo-cucumber', require: false, git: 'https://github.com/arkbot/perscribo-cucumber.git'
+  gem 'perscribo-rails', require: true, git: 'https://github.com/arkbot/perscribo-rails.git'
+  gem 'perscribo-rspec', require: false, git: 'https://github.com/arkbot/perscribo-rspec.git'
+  gem 'perscribo-rubocop', require: false, git: 'https://github.com/arkbot/perscribo-rubocop.git'
+  gem 'perscribo-scss-lint', require: false, git: 'https://github.com/arkbot/perscribo-scss-lint.git'
+  gem 'perscribo-unicorn', require: true, git: 'https://github.com/arkbot/perscribo-unicorn.git'
+
+  # gem 'scss-lint', require: false, path: '/Users/aeberlin/Projects/Repositories/scss-lint'
+
+  # gem 'guard-rubocop', require: false, path: '/Users/aeberlin/Projects/Repositories/guard-rubocop'
+  # gem 'guard-scss-lint', require: false, path: '/Users/aeberlin/Projects/Repositories/guard-scss-lint'
+
+  # gem 'intus', require: false, path: '/Users/aeberlin/Projects/Repositories/intus'
+  # gem 'perscribo', require: false, path: '/Users/aeberlin/Projects/Repositories/perscribo'
+  # gem 'guard-perscribo', require: false, path: '/Users/aeberlin/Projects/Repositories/guard-perscribo'
+
+  # gem 'perscribo-cucumber', require: false, path: '/Users/aeberlin/Projects/Repositories/perscribo-cucumber'
+  # gem 'perscribo-rails', require: true, path: '/Users/aeberlin/Projects/Repositories/perscribo-rails'
+  # gem 'perscribo-rspec', require: false, path: '/Users/aeberlin/Projects/Repositories/perscribo-rspec'
+  # gem 'perscribo-rubocop', require: false, path: '/Users/aeberlin/Projects/Repositories/perscribo-rubocop'
+  # gem 'perscribo-scss-lint', require: false, path: '/Users/aeberlin/Projects/Repositories/perscribo-scss-lint'
+  # gem 'perscribo-unicorn', require: true, path: '/Users/aeberlin/Projects/Repositories/perscribo-unicorn'
+end
