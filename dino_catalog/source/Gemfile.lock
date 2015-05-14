@@ -91,6 +91,7 @@ DEPENDENCIES
   guard (~> 2.6.1)
   guard-rspec (~> 4.3.1)
   guard-shell
+  pry
   rspec (~> 3.0.0)
   rubocop
   terminal-notifier-guard
